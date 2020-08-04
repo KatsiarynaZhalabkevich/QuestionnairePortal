@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:o="http://omnifaces.org/ui"
+>
+<h:head></h:head>
+<h:body>
+    <h:form>
+        <p:panelGrid columns="2" style="position:absolute; top: 250px; left:500px;">
+            <f:facet name="header">
+                <p:outputLabel value="Fields"/>
+                <p:button value="Add new Filed" href="add.xhtml"/>
+            </f:facet>
+            <p:separator/><br/>
+            <p:dataTable var="field" value="#{fieldController.fields}">
+                <p:column headerText="Label">
+                    <h:outputText value="#{field.label}" />
+                </p:column>
+
+                <p:column headerText="Type">
+                    <h:outputText value="#{field.type}" />
+                </p:column>
+                <p:column headerText="Required">
+                    <h:outputText value="#{field.required}" />
+                </p:column>
+                <p:column headerText="Type">
+                    <h:outputText value="#{field.active}" />
+                </p:column>
+                <p:column headerText="">
+                    <p:commandButton value="Edit" action="#{fieldController.editField(field.id)}"/>
+                    <p:commandButton value="Delete" action="#{fieldController.deleteField(field.id)}"/>
+                </p:column>
+            </p:dataTable>
+        </p:panelGrid>
+
+
+    </h:form>
+</h:body>
+</html>
+

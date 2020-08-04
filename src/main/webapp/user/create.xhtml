@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+<h:body>
+    <h:form>
+        <h:panelGrid id="matchGrid" columns="2" cellpadding="5">
+            <f:facet name="header">Sign In</f:facet>
+            <p:separator/><br/>
+            <p:outputLabel for="mail" value="Enter your email:"/>
+            <p:inputText value="#{userController.email}" id="mail" required="true"/>
+
+            <p:outputLabel for="name1" value="First name:"/>
+            <p:inputText value="#{userController.firstName}" id="name1"/>
+
+            <p:outputLabel for="name2" value="Last name:"/>
+            <p:inputText value="#{userController.lastName}" id="name2"/>
+
+            <p:outputLabel for="phone" value="Phone:"/>
+            <p:inputText value="#{userController.phone}" id="phone"/>
+
+
+            <h:outputLabel for="pwd1" value="Enter your password: *"/>
+            <p:password id="pwd1" value="#{userController.password}" match="pwd2" label="Password 1" required="true"/>
+
+            <h:outputLabel for="pwd2" value="Enter your password again: *"/>
+            <p:password id="pwd2" value="#{userController.password1}" label="Password 2" required="true"/>
+
+
+            <p:commandButton update="matchGrid" value="Sign In" action="#{userController.createUser()}"/>
+
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </h:panelGrid>
+    </h:form>
+</h:body>
+</html>
