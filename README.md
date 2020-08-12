@@ -10,9 +10,9 @@
 ### App:
 > src/main/resourses/application.properties
 ### SQL:
-To create BD  make property  <property name="hibernate.hbm2ddl.auto" value="create"/> at
-> src/main/resourses/META-INF/persistense.xml
-To insert data use script
+#### To create BD  make property at
+> src/main/resourses/META-INF/persistense.xml  "hibernate.hbm2ddl.auto" value="create"
+#### To insert data use script
 > src/main/resourses/script.sql
 
 
