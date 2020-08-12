@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="title">
+        Logination page
+    </ui:define>
+    <ui:define name="content">
+    <h:form>
+        <p:growl id="message" sticky="true" showDetail="true"/>
+        <p:panelGrid columns="2" style="position:absolute; top: 250px; left:500px;">
+            <f:facet name="header">Login Form</f:facet>
+            <h:outputText value="email"/>
+            <p:inputText required="true" placeholder="email" value="#{userController.email}"/>
+            <h:outputText value="password"/>
+            <p:password required="true" placeholder="password" value="#{userController.password}"/>
+            <f:facet name="footer">
+                <p:commandButton value="Login"
+                                 action="#{userController.login(userController.email, userController.password)}"/>
+                <br/>
+                <p:commandLink action="#{userController.resetPas}">Forgot your password?</p:commandLink>
+
+                <p:separator/>
+                <h:outputText value="Don't have account?"/>
+                <p:commandLink  action="#{userController.signIn}">Sign In</p:commandLink>
+            </f:facet>
+        </p:panelGrid>
+
+<!--        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>-->
+    </h:form>
+    </ui:define>
+</ui:composition>

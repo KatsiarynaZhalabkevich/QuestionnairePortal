@@ -1,0 +1,70 @@
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="title">
+        New response
+    </ui:define>
+    <ui:define name="content">
+        <h:form>
+            <p:growl id="message" sticky="true" showDetail="true"/>
+            <p:panelGrid columns="1" style="position:absolute; top: 10%; left: 10%">
+                <f:facet name="header">
+                    <p:outputLabel value="New response"/>
+                </f:facet>
+                <p:separator/>
+                <p:dataTable  var="field" value="#{fieldController.fields}">
+                    <p:column>
+                        <p:row>
+                            <p:outputLabel value="#{field.label}"/><br/>
+                            <h:panelGroup rendered="#{field.type.ordinal() == 0}">
+                                <p:inputText required="#{field.required}" disabled="#{!field.active}"
+                                             var="val1"   value="#{valueController.singleVal}"/>
+                                <h:inputHidden value="#{valueController.setValueMap(field,val1)}"/>
+                            </h:panelGroup><br/>
+                            <h:panelGroup rendered="#{field.type.ordinal()==1}">
+                                <p:inputTextarea required="#{field.required}" disabled="#{!field.active}" rows="6"
+                                                 cols="33"
+                                                 var="val2"  value="#{valueController.singleVal}"/>
+                                <h:inputHidden value="#{valueController.setValueMap(field,val2)}"/>
+                            </h:panelGroup><br/>
+                            <h:panelGroup rendered="#{field.type.ordinal() == 2}">
+                                <p:selectOneRadio columns="1"  var="val3" value="#{valueController.singleVal}"
+                                                  rendered="#{field.required}" disabled="#{!field.active}"><br/>
+                                    <f:selectItems value="#{field.options}" var="op" itemLabel="#{op.option}"
+                                                   itemValue="#{op.option}"/><br/>
+                                    <h:inputHidden value="#{valueController.setValueMap(field, val3)}"/>
+                                </p:selectOneRadio>
+                            </h:panelGroup><br/>
+                            <h:panelGroup rendered="#{field.type.ordinal() == 3}">
+                                <p:selectManyCheckbox columns="1" var="vals" value="#{valueController.values}"
+                                                      required="#{field.required}" disabled="#{!field.active}"><br/>
+                                    <f:selectItems value="#{field.options}" var="op" itemLabel="#{op.option}"
+                                                   itemValue="#{op.option}"/><br/>
+                                    <h:inputHidden value="#{valueController.field}"/>
+                                </p:selectManyCheckbox>
+                            </h:panelGroup><br/>
+                            <h:panelGroup rendered="#{field.type.ordinal() == 4}">
+                                <p:datePicker var="val4" value="#{valueController.singleVal}" required="#{field.required}"
+                                              disabled="#{!field.active}"/><br/>
+                                <h:inputHidden value="#{valueController.setValueMap(field,val4)}"/>
+                            </h:panelGroup><br/>
+                        </p:row>
+                    </p:column>
+
+                </p:dataTable>
+                <p:separator/>
+                <f:facet name="footer">
+                    <p:commandButton value="Save" action="#{valueController.saveResponse}"/>
+                    <p:commandButton value="Cancel"
+                                     action="#{valueController.cancel}"/><br/>
+
+                </f:facet>
+            </p:panelGrid>
+
+        </h:form>
+    </ui:define>
+</ui:composition>
+

@@ -21,4 +21,6 @@ public interface UserService {
     boolean updatePassword(Users user, String newPassword) throws ServiceException;
 
     boolean resetPassword(String email, String newPassword) throws ServiceException;
+
+    void updateUserInfo(Users user) throws ServiceException;
 }

@@ -6,18 +6,20 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import javax.ejb.Stateless;
+import java.io.Serializable;
+
 
 @Service
-@Stateless
-public class MailSender {
+public class MailSender implements Serializable {
     @Value("${spring.mail.username}")
     private String username;
+
 
     @Autowired
     private JavaMailSender mailSender;
 
-    public void send(String emailTo, String subject, String message){
+
+    public void send(String emailTo, String subject, String message) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom(username);
         mailMessage.setSubject(subject);
@@ -25,4 +27,6 @@ public class MailSender {
         mailMessage.setTo(emailTo);
         mailSender.send(mailMessage);
     }
+
+
 }

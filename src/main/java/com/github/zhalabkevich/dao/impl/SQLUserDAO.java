@@ -72,17 +72,30 @@ public class SQLUserDAO implements UserDAO {
     }
 
     @Override
-    public boolean updatePassword(Users user) throws DAOException {
+    public void updatePassword(Users user) throws DAOException {
         try {
             int count = em.createQuery("update Users set password = :password where id = :id")
                     .setParameter("password", user.getPassword())
+                    .setParameter("id", user.getId())
+                    .executeUpdate();
+        } catch (PersistenceException e) {
+            throw new DAOException(e);
+        }
+
+    }
+@Override
+    public boolean updateUserInfo(Users user) throws DAOException {
+        try {
+            int count = em.createQuery("update Users set firstName= :firstName, lastName=:lastName, phone=:phone where id = :id")
+                    .setParameter("firstName", user.getFirstName())
+                    .setParameter("lastName", user.getLastName())
+                    .setParameter("phone", user.getPhone())
                     .setParameter("id", user.getId())
                     .executeUpdate();
             return count == 1;
         } catch (PersistenceException e) {
             throw new DAOException(e);
         }
-
     }
 
     @Override

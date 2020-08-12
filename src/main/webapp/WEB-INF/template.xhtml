@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title><ui:insert name="title">Default title</ui:insert></title>
+</h:head>
+<h:body>
+    <div id="menu"> <!--@elvariable id="user" type="com.github.zhalabkevich.domain.Users"-->
+        <h:form style="margin:1px 10px 1px 1px;">
+            <p:menubar rendered="#{not empty user}">
+                <p:submenu label="Fields">
+                    <p:menuitem value="New" action="#{fieldController.add}"/>
+                    <p:menuitem value="Fields" action="#{fieldController.showFields}"/>
+                </p:submenu>
+
+                <p:submenu label="Responses">
+                    <p:menuitem value="New" url="index.xhtml"/>
+                    <p:menuitem value="View all" url="#"/>
+                </p:submenu>
+
+                <p:submenu label="Hello, #{user.firstName}">
+                    <p:menuitem value="Edit profile" action="#{userController.edit}"/>
+                    <p:menuitem value="Change password" url="#{userController.changePass}"/>
+                    <p:menuitem value="Log out" action="#{userController.logOut}"/>
+                </p:submenu>
+            </p:menubar>
+
+                <p:menubar rendered="#{ empty user}"  style="margin-right: auto">
+                    <p:menuitem value="Log In"  action="#{userController.login}"/>
+                    <p:menuitem value="Sign In"  action="#{userController.signIn}"/>
+                </p:menubar>
+
+
+
+        </h:form></div>
+    <div id="content"><ui:insert name="content">Default content</ui:insert></div>
+
+</h:body>
+</html>

@@ -18,7 +18,9 @@ public interface UserDAO extends Serializable {
 
     void deleteUser(Long id) throws DAOException;
 
-    boolean updatePassword(Users user) throws DAOException;
+    void updatePassword(Users user) throws DAOException;
+
+    boolean updateUserInfo(Users user) throws DAOException;
 
 
 }

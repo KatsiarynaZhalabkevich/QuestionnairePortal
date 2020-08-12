@@ -10,6 +10,7 @@ public class FieldOption implements Serializable {
     private Long id;
     private String option;
     @ManyToOne
+    @JoinColumn(name="field_id")
     private Field field;
 
     public FieldOption(){}

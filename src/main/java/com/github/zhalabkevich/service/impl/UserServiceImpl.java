@@ -18,19 +18,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Users findUser(Users user) throws ServiceException {
-        Users userFromDB;
+
         try {
-            userFromDB = userDAO.findUserByEmail(user.getEmail());
+            Users userFromBD = userDAO.findUserByEmail(user.getEmail());
+            if(user.getPassword().equals(userFromBD.getPassword())){
+                return userFromBD;
+            }else return null;
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
-        return user.equals(userFromDB) ? userFromDB : null;
     }
 
     @Override
     public Users findUserByEmail(String email) throws ServiceException {
         try {
-            return userDAO.findUserByEmail(email);
+             return  userDAO.findUserByEmail(email);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
@@ -53,6 +55,15 @@ public class UserServiceImpl implements UserService {
     public Users findUserById(Long id) throws ServiceException {
         try {
             return userDAO.findUserById(id);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void updateUserInfo(Users user) throws ServiceException {
+        try {
+            userDAO.updateUserInfo(user);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }

@@ -2,7 +2,10 @@ package com.github.zhalabkevich.dao.impl;
 
 import com.github.zhalabkevich.dao.DAOException;
 import com.github.zhalabkevich.dao.FieldDAO;
+import com.github.zhalabkevich.dao.util.HibernateUtil;
 import com.github.zhalabkevich.domain.Field;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -10,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
@@ -75,18 +79,17 @@ public class SQLFieldDAO implements FieldDAO {
 
     @Override
     public Field updateField(Field field) throws DAOException {
+
         try {
-            int count = em.createQuery("update Field " +
-                    "set label=:label, type=:type, required=:required, active=:active " +
-                    "where id=:id")
-                    .setParameter("label", field.getLabel())
-                    .setParameter("type", field.getType())
-                    .setParameter("required", field.isRequired())
-                    .setParameter("active", field.isActive()).executeUpdate();
-            if (count == 1) {
-                return field;
-            } else return null;
-        } catch (PersistenceException e) {
+            Session session = HibernateUtil.getSession();
+            session.beginTransaction();
+            session.saveOrUpdate(field);
+            session.getTransaction().commit();
+            session.clear();
+            session.close();
+            return field;
+
+        } catch (HibernateException e) {
             throw new DAOException(e);
         }
 
@@ -104,9 +107,11 @@ public class SQLFieldDAO implements FieldDAO {
     @Override
     public void deleteFieldById(Long id) throws DAOException {
         try {
-            em.createQuery("delete from Field  where id=:id")
-                    .setParameter("id", id)
-                    .executeUpdate();
+//            em.createQuery("delete from Field  where id=:id")
+//                    .setParameter("id", id)
+//                    .executeUpdate();
+            Field field = getFieldById(id);
+            em.remove(field);
         } catch (PersistenceException e) {
             throw new DAOException(e);
         }

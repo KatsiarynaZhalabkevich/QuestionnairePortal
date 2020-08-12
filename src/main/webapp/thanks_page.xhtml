@@ -1,0 +1,19 @@
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="title">
+        Thanks for response page
+    </ui:define>
+
+    <ui:define name="content">
+        <p:panelGrid columns="1" style="position:absolute; top: 250px; left: 500px">
+        <f:facet name="header">
+            <p:outputLabel value="Thank you!"/>
+        </f:facet>
+            <p:outputLabel value="Your response was saved."/>
+        </p:panelGrid>
+    </ui:define>
+</ui:composition>

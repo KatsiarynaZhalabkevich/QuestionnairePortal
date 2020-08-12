@@ -8,21 +8,23 @@ import java.util.Objects;
 
 @Entity
 public class Field implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
     private String label;
-    @OneToMany(mappedBy = "field", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
     private List<FieldValue> values;
     @Enumerated(EnumType.STRING)
     private Type type;
-    @OneToMany(mappedBy = "field", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "field", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<FieldOption> options;
     private boolean required;
     private boolean active;
 
-    public Field(){}
+    public Field() {
+    }
 
     public Field(@NotNull String label, Type type, boolean required, boolean active) {
         this.label = label;
@@ -109,7 +111,6 @@ public class Field implements Serializable {
         return "Field{" +
                 "id=" + id +
                 ", label='" + label + '\'' +
-                ", values=" + values +
                 ", type=" + type +
                 ", required=" + required +
                 ", active=" + active +

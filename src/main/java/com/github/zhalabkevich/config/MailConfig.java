@@ -8,6 +8,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Properties;
 
+
 @Configuration
 public class MailConfig {
     @Value("${spring.mail.host}")
@@ -27,8 +28,9 @@ public class MailConfig {
     public JavaMailSender javaMailSender() {
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
         Properties properties = javaMailSender.getJavaMailProperties();
-        properties.setProperty("mail.transport.protocol",protocol);
-        properties.setProperty("mail.debug",debug);
+
+        properties.setProperty("mail.transport.protocol", protocol);
+        properties.setProperty("mail.debug", debug);
         return javaMailSender;
     }
 }

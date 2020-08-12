@@ -75,7 +75,7 @@ public class FieldServiceImpl implements FieldService {
 //
 //        } catch (DAOException e) {
 //            throw new ServiceException(e);
-//        } скопировать!!!!
+//        }
         return null;
     }
 

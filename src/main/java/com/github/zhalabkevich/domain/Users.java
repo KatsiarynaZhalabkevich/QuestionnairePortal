@@ -21,16 +21,15 @@ public class Users implements Serializable {
     private String lastName;
     private String phone;
     private String activationCode;
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
-    private Set<Role> role;
+    private Role role = Role.USER;
 
     @OneToMany
     private List<FieldValue> values;
 
     public Users() {
     }
+
     public Users(String email, String password) {
         this.email = email;
         this.password = password;
@@ -100,11 +99,11 @@ public class Users implements Serializable {
         this.values = values;
     }
 
-    public Set<Role> getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(Set<Role> role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
